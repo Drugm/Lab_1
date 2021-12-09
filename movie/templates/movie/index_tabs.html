@@ -1,0 +1,47 @@
+{% extends 'movie/base.html' %}
+
+{% block content %}
+<!-- ------------------------------------------------------------------------->
+{% regroup posts by movie as movie_list %}
+<!-- ------------------------------------------------------------------------->
+{% for movie in movie_list %}
+
+<div class="card text-center">
+  <div class="card-header">
+        <!--------------- Показ постера --------------------------->
+    {% if movie.grouper.photo %}
+    <p><a href="{{ movie.grouper.get_absolute_url }}"><img class="card-img-top" src="{{movie.grouper.photo.url}}" alt="Card image cap"></a></p>
+    {% endif %}
+    <!---------------End Показ постера --------------------------->
+    {% regroup dates by date as date_list %}
+    {% for date in date_list %}
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="{{date.grouper|date:'dmy'}}">{{date.grouper|date:"d"}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+  <div class="card-body">
+    <h5 class="card-title">{{movie.grouper.title}}</h5>
+    <p class="card-text" style="height:1px" align="left">Дата выхода: {{movie.grouper.year}}</p>
+    <p class="card-text" style="height:1px" align="left">Жанр: {{movie.grouper.genre}}</p>
+    <p class="card-text" style="height:1px" align="left">Возраст: {{movie.grouper.age_limit}}+</p>
+    <p class="card-text" style="height:1px" align="left">Время: {{movie.grouper.duration}}мин.</p>
+    {% if movie.grouper.format_3d %}
+        <p class="card-text" style="height:1px" align="left">Формат 3D</p>
+    {% else %}
+        <p class="card-text" style="height:1px" align="left">Формат 2D</p>
+    {% endif %}
+        <br>
+
+    {% for p in movie.list|dictsort:"time" %}
+       <button type="button" class="btn-sm btn-primary ">{{ p.time }} {{ p.price }}₽</button>
+    {% endfor %}
+
+  </div>
+</div>
+    {% endfor %}
+{% endblock %}

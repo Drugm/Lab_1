@@ -1,0 +1,23 @@
+{% extends 'movie/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<p>Содержимое страницы о сайте</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.name }}
+
+        <button type="submit" class="btn btn-success">Добавить</button>
+        <span> {{ error }} </span>
+    </form>
+<form>
+<select class="form-select form-select mb-3" aria-label="Change city">
+        <option selected>Выберите город</option>
+    {% for c in city %}
+        <option value="{{c.pk}}">{{c.name}} </option>
+    {% endfor %}
+</select>
+    <button type="submit" class="btn btn-success">Добавить город</button>
+
+</form>
+{% endblock %}

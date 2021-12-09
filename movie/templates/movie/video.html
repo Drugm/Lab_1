@@ -1,0 +1,79 @@
+{% load static %}
+{% load movie_tags %}
+
+
+<html class="h-100">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>CinemaDeLux</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="{% static 'movie/images/btn_yt.png' %}">
+    <link rel="apple-touch-startup-image" href="{% static 'movie/images/btn_yt.png' %}">
+    <link rel="manifest" href="/manifest.json">
+    <link href="{% static 'movie/bootstrap/bootstrap.css' %}" rel="stylesheet"/>
+    <link href="{% static 'movie/themes/default-dark.css' %}" rel="stylesheet"/>
+    <link href="{% static 'movie/themes/font-awesome.min.css' %}" rel="stylesheet"/>
+    <script type="text/javascript" src="{% static 'movie/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'movie/js/javascript.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <style>
+
+.card-deck {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(min(100%, 500px), 1fr));
+  grid-gap: 2rem;
+}
+
+        .card:only-of-type {
+            max-width: minmax(min(100%, 500px);
+            margin: auto !important;
+
+        .js-cart-item-minus .fa,
+        .js-cart-item-plus .fa {
+            background: #fff;
+            border-radius: 50%;
+            width: 17px;
+            height: 17px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+  .center {
+    text-align: center;
+  }
+    </style>
+</head>
+<body class="h-100">
+     <div class="container d-flex h-100">
+             <!-- Хедер -->
+        <div class="justify-content-center align-self-center text-center mx-auto px-2 py-3 w-100 m-auto">
+            <div class="card-deck my-3 mx-auto">
+                <div class="card px-0" data-id="0">
+
+                <!--------------- Показ постера --------------------------->
+                    {% if post.video %}
+                      <iframe width=minmax(min(100%, 500px) height="315"  src="{{ post.video }}" frameborder="0" allowfullscreen></iframe>
+                    {% endif %}
+                    <br>
+
+                      <h5 class="card-title">{{post.title}}</h5>
+                    {% autoescape on %}
+                      <p class="card-text" style=" " align="center">{{post.content|linebreaks|truncatewords:50}}</p>
+                    {% endautoescape %}
+
+                                    <div class="card-footer bg-transparent border-0 pb-3">
+                                        <button type="submit" onclick="history.back();"class="btn btn-success">Назад</button>
+                                    </div>
+
+                 </div>
+               </div>
+            </div>
+         </div>
+
+</body>
+</html>
+

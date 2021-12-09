@@ -1,0 +1,10 @@
+pip install django-embed-video
+python -m pip install Jinja2
+
+{% load embed_video_tags %}
+выводим ссылку на видео таким образом
+
+{% if te.video %}
+<iframe width="560" height="315" src="{{ te.video }}" frameborder="0" allowfullscreen></iframe>
+{% endif %}
+

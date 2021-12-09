@@ -1,0 +1,37 @@
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    color: #408fdb;
+    padding: 0.4rem 0.6rem;
+
+}
+
+.pagination li {display: inline;}
+
+.pagination li a {
+    float: left;
+    padding: 4px 10px;              ###padding: 8px 16px;
+    text-decoration: none;
+    background-color: rgb(9 11 12);
+    color: #408fdb;
+    padding: 0.4rem 0.6rem;
+   }
+</style>
+    <nav aria-label="...">
+      <ul class="pagination pagination">
+              {% for c in cities %}
+            {% if c.slug == city_selected %}
+                <li class="page-item active"><a class="page-link" href="">{{c.name}}</a>
+            {% else %}
+                <li class="page-item"><a class="page-link" href="{{ c.get_absolute_url }}{{now_date|date:'dmy'}}">{{c.name}}</a>
+            {% endif %}
+         {% endfor %}
+      </ul>
+    </nav>
+
+
+
+

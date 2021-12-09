@@ -1,0 +1,6 @@
+AddDefaultCharset utf-8
+Options +ExecCGI
+AddHandler wsgi-script .wsgi
+RewriteEngine On
+RewriteCond % !-f
+RewriteRule ^(.*)$ /passenger_wsgi.py/$1 [QSA,PT,L]

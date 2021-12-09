@@ -1,0 +1,78 @@
+{% extends 'movie/base.html' %}
+
+{% block content %}
+<!-- ------------------------------------------------------------------------->
+{% regroup posts by movie as movie_list %}
+<!-- ------------------------------------------------------------------------->
+{% for movie in movie_list %}
+
+<div class="card text-center">
+     <!--------------- Показ постера --------------------------->
+    {% if movie.grouper.photo %}
+    <p><a href="{{ movie.grouper.get_absolute_url }}"><img class="card-img-top" src="{{movie.grouper.photo.url}}" alt="Card image cap"></a></p>
+    <u> <div  style="position:relative;bottom:300px;">Смотреть трейлер </div> </u>
+
+    {% endif %}
+    <!---------------End Показ постера --------------------------->
+  <div class="card-header">
+
+    {% regroup dates by date as date_list %}
+    <h8 class="card-title">Дата показа:</h8>
+    <ul class="nav nav-tabs card-header-tabs">
+          {% for date in date_list %}
+<!--------------------------Экперемент-------------------------------------------------------------------->
+        {% for p in date.list%}
+         {%if movie.grouper.title|upper == p.movie|upper %}
+             {% ifchanged p.date %}
+<!----------------------------------------------------------------------------------------------->
+              {% if date.grouper|date:'dmy' ==  date_selected %}
+                    {% if date.grouper|date:'dmy' == now_date|date:'dmy' %}
+                          <li class="nav-item">
+                            <a class="nav-link active" href="{{date.grouper|date:'dmy'}}">Сегодня</a>
+                          </li>
+                    {% else %}
+                          <li class="nav-item">
+                            <a class="nav-link active" href="{{date.grouper|date:'dmy'}}">{{date.grouper|date:"d"}}</a>
+                           </li>
+                    {% endif %}
+                 {% else %}
+                    {% if date.grouper|date:'dmy' == now_date|date:'dmy' %}
+                           <li class="nav-item">
+                            <a class="nav-link " href="{{date.grouper|date:'dmy'}}">Сегодня</a>
+                           </li>
+                        {% else %}
+                           <li class="nav-item">
+                            <a class="nav-link " href="{{date.grouper|date:'dmy'}}">{{date.grouper|date:"d"}}</a>
+                           </li>
+                    {% endif %}
+             {% endif %}
+                {% endifchanged %}
+        {% endif %}
+       {% endfor %}
+
+{% endfor %}
+    </ul>
+  </div>
+
+  <div class="card-body">
+          {% for p in movie.list|dictsort:"time" %}
+            <button type="button" class="btn btn-link ">{{ p.time }} {{ p.price }}₽</button>
+          {% endfor %}
+    <h5 class="card-title">{{movie.grouper.title}}</h5>
+    <p class="card-text" style="height:1px" align="left">Дата выхода: {{movie.grouper.year}}</p>
+    <p class="card-text" style="height:1px" align="left">Жанр: {{movie.grouper.genre}}</p>
+    <p class="card-text" style="height:1px" align="left">Возраст: {{movie.grouper.age_limit}}+</p>
+    <p class="card-text" style="height:1px" align="left">Время: {{movie.grouper.duration}}мин.</p>
+    {% if movie.grouper.format_3d %}
+        <p class="card-text" style="height:1px" align="left">Формат 3D</p>
+    {% else %}
+        <p class="card-text" style="height:1px" align="left">Формат 2D</p>
+    {% endif %}
+        <br>
+
+
+
+  </div>
+</div>
+    {% endfor %}
+{% endblock %}

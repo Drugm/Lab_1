@@ -1,0 +1,59 @@
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    color: #408fdb;
+    padding: 0.1rem 0.1rem;
+
+}
+
+.pagination li {display: inline;}
+
+.pagination li a {
+    float: left;
+    padding: 4px 10px;              ###padding: 8px 16px;
+    text-decoration: none;
+    background-color: rgb(9 11 12);
+    color: #408fdb;
+    padding: 0.4rem 0.4rem;
+   }
+</style>
+
+
+{% regroup dates by date as date_list %}
+<nav aria-label="...">
+  <ul class="pagination pagination">
+    {% for date in date_list %}
+          {% if date.grouper|date:'dmy' ==  date_selected %}
+                {% if date.grouper|date:'dmy' == now_date|date:'dmy' %}
+                    <div>
+                      <ul class="pagination pagination-lg">
+                       <li class="page-item  active"><a class="page-link" href="{{date.grouper|date:'dmy'}}">Сегодня в кино</a>
+                      </ul>
+                         <br> <h6 class="card-title" align="left">Выбор по дате:</h6>
+                    </div>
+                {% else %}
+                      <li class="page-item  active"><a class="page-link" href="{{date.grouper|date:'dmy'}}">{{date.grouper|date:"d.m"}}</a>
+
+                {% endif %}
+          {% else %}
+                {% if date.grouper|date:'dmy' == now_date|date:'dmy' %}
+                       <div>
+                        <ul class="pagination pagination-lg">
+                         <li class="page-item"><a class="page-link" href="{{date.grouper|date:'dmy'}}">Сегодня в кино</a>
+                        </ul>
+                           <br> <h6 class="card-title" align="left">Выбор по дате:</h6>
+                       </div>
+                {% else %}
+                      <li class="page-item"><a class="page-link" href="{{date.grouper|date:'dmy'}}">{{date.grouper|date:"d.m"}}</a>
+
+                {% endif %}
+          {% endif %}
+
+    {% endfor %}
+  </ul>
+</nav>
+
